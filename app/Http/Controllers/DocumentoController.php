@@ -17,16 +17,34 @@ class DocumentoController extends Controller
     {
         //
     }
-
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+
+    public function add($id)
     {
-        /* $vehiculo = vehiculo::findOrFail($vehiculo->id); */
-        return view('documentos.create');
+        //dd($id);
+        $vehiculo = vehiculo::findOrFail($id);
+        //dd($vehiculo->id); 
+        //, compact('vehiculo')
+        return view('documentos.create', compact('vehiculo'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     
+     *@param  \App\Models\vehiculo  $vehiculo
+     * @return \Illuminate\Http\Response
+     */
+    public function create(vehiculo  $vehiculo)
+    {
+        dd($vehiculo->id);
+        $vehiculo = vehiculo::findOrFail($vehiculo);
+        //dd($vehiculo); 
+        //, compact('vehiculo')
+        return view('documentos.create', compact('vehiculo'));
         //
     }
 
@@ -34,11 +52,43 @@ class DocumentoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * *@param  \App\Models\documento  $vehiculo
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+
+        
+         //dd($request);
+        
+        if($request->hasFile("urlpdf")){
+
+            $file=$request->file("urlpdf");
+            $nombre = "pdf_".time().".".$file->guessExtension();
+            $ruta = public_path("pdf/".$nombre);
+            $documento = documento::create($request->only('nombre','fecha_expedicion','fecha_vencimiento','valor','vehiculo_id')); 
+            $documento->path = $ruta;
+            $documento->update();
+
+
+           
+              
+        
+             
+  
+            if($file->guessExtension()=="pdf"){
+                copy($file, $ruta);
+            }else{
+
+                return redirect()->route('vehiculos.index')->with('success', "EL DOCUMENTO QUE ESTAS INTENTANDO AGREGAR NO ES UN PDF");
+                //dd("NO ES UN PDF");
+            }
+
+            
+        }
+        
+
+        return redirect()->route('vehiculos.index')->with('success', 'Documento agregado correctamente');
     }
 
     /**

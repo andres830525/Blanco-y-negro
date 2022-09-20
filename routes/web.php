@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
     Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
@@ -34,4 +35,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::resource('vehiculos', App\Http\Controllers\VehiculoController::class);
     Route::resource('documentos', App\Http\Controllers\DocumentoController::class);
+    Route::get('/add/{vehiculo}', [App\Http\Controllers\DocumentoController::class, 'add'])->name('documet.add');
+    
 });

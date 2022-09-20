@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <form method="POST" action="{{ route('posts.store') }}" class="form-horizontal">
+        <form method="POST" action="{{ route('documentos.store') }}" class="form-horizontal" enctype="multipart/form-data">
           @csrf
           <div class="card ">
             <!--Header-->
@@ -16,10 +16,11 @@
             <!--End header-->
             <!--Body-->
             <div class="card-body">
+              <input id="prodId" name="vehiculo_id" type="hidden" value="{{ $vehiculo->id }}">
               <div class="row">
                 <label for="title" class="col-sm-2 col-form-label">Nombre del documento</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="title" placeholder="Ingrese el nombre del documento"
+                  <input type="text" class="form-control" name="nombre" placeholder="Ingrese el nombre del documento"
                     autocomplete="off" autofocus>
                 </div>
                 
@@ -27,9 +28,15 @@
 
               <label for="inputState">Fecha de expedición(*)</label>
                 <input type="date" name="fecha_expedicion">
+                @error('fecha_expedicion')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 
                 <label for="inputState">Fecha de vencimiento(*)</label>
                 <input type="date" name="fecha_vencimiento">
+                @error('fecha_vencimiento')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 
               <div class="row">
                 <label for="title" class="col-sm-2 col-form-label">Valor del documento</label>
@@ -46,7 +53,7 @@
                 <span class="btn btn-raised btn-round btn-default btn-file">
                     <span class="fileinput-new">Selecionar Documento</span>
                     
-                    <input type="file" name="..." />
+                    <input type="file" name="urlpdf" />
                 </span>
                 
             </div>

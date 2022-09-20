@@ -65,7 +65,7 @@
                               <td>{{ $vehiculo->fecha_matricula }}</td>
                               <td class="td-actions text-right">
                                 @can('user_show')
-                                <a href="{{ route('documentos.create', $vehiculo->id) }}" class="btn btn-info"><i class="material-icons">file_present</i></a>
+                                <a href="{{ route('documet.add', $vehiculo->id) }}" class="btn btn-info"><i class="material-icons">file_present</i></a>
                                 @endcan
                                 @can('user_show')
                                 <a href="{{ route('vehiculos.show', $vehiculo->id) }}" class="btn btn-info"><i class="material-icons">person</i></a>

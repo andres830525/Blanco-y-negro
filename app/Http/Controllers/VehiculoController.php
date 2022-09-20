@@ -128,25 +128,22 @@ class VehiculoController extends Controller
      */
     public function update(Request $request, vehiculo $vehiculo)
     {
-        $validatedData = $request->validate([
-            'numero_vehículo' => 'required|max:255',
-            'placa' => 'required|max:255',
-            'chasis' => 'required',
-            
-          ], [
-           
-            'numero_vehículo.required' => 'El numero es obligatorio.',
-            'placa.required' => 'Es necesaria la Placa del vehiculo.',
-            'chasis.required' => 'Selecione una opcion.',
-            
-         ]);
-        //
-        $vehiculo->update($request->all());
-       
+         
         
-        session()->flash('flash_message', 'Vehiculo creado correctamente!');
 
-        return redirect()->route('vehiculos.index');  
+         $data = $request->only('numero_vehículo','placa','chasis','fecha_matricula','tipologia');
+        //  dd($data);
+        
+        
+ 
+         $vehiculo->update($data);
+ 
+       
+         return redirect()->route('vehiculos.index')->with('success', 'vehiculo actualizado correctamente');
+
+
+
+
     }
 
     /**

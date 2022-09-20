@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class vehiculo extends Model
 {
     protected $table = 'vehiculos';
-    protected $fillable = ['numero_vehículo','placa','chasis','fecha_matricula','topologia' ];
+    protected $fillable = ['numero_vehículo','placa','chasis','fecha_matricula','tipologia_id' ];
     public function tipologia(){
         return $this->belongsTo('App\Models\tipologia');
     }

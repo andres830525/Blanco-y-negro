@@ -21,7 +21,7 @@ class CreateVehiculosTable extends Migration
             $table->string('placa');
             $table->string('chasis');
             $table->date('fecha_matricula');
-            // $table->foreignIdFor(documento::class)->nullable();
+            
             $table->foreignIdFor(tipologia::class);
             $table->timestamps();
         });
