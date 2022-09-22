@@ -1,7 +1,36 @@
 @extends('layouts.main', ['activePage' => 'vehiculos', 'titlePage' => 'Vehiculos'])
 @section('content')
     <div class="content">
+
+      <div class="row">
+        <div class="col-3 text-right">
+
+      <form  class="navbar-form">
+        <div class="input-group no-border">
+        <input id="search" type="text" value="" class="form-control" placeholder="Search...">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+          <i class="material-icons">search</i>
+          <div class="ripple-container"></div>
+        </button>
+        </div>
+      </form>
+
+      <h4 class="card-title">Busqueda</h4>
+      <div class="agile-group required-control">
+      <label class="agile-label" ></label>
+      
+
+
+
+    </div>
+  </div>
+
+
       <div class="container-fluid">
+
+        
+
+
         <div class="row">
           <div class="col-md-12">
             <div class="row">
@@ -17,6 +46,11 @@
                       {{ session('success') }}
                     </div>
                     @endif
+                    @if (session('warning'))
+                    <div class="alert alert-warning" role="warning">
+                      {{ session('warning') }}
+                    </div>
+                    @endif
                     <div class="row">
                       <div class="col-12 text-right">
                         @can('user_create')
@@ -25,22 +59,9 @@
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-3 text-right">
+                    
 
-                    <form class="navbar-form">
-                      <div class="input-group no-border">
-                      <input id="search" type="text" value="" class="form-control" placeholder="Search...">
-                      <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                        <i class="material-icons">search</i>
-                        <div class="ripple-container"></div>
-                      </button>
-                      </div>
-                    </form>
-
-                  </div>
-                </div>
-
+              
 
                     
                     <div class="table-responsive">
@@ -100,15 +121,8 @@
       </div>
     </div>
 @endsection
-@section('js')
-<script>
-    var vehiculos = ['php','laravel'];
-      $('#search').autocomplete({
-      source: vehiculos
 
-      });
 
-</script>
-@endsection
+  
 
 

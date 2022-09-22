@@ -15,7 +15,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
-  <link href="{{ asset('css/material-dashboard.css?v=2.1.1') }}" rel="stylesheet" />
+  <link href="/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -30,13 +30,62 @@
     @include('layouts.page_templates.guest')
   @endguest
   <!--   Core JS Files   -->
- <script src="{{ asset('js/core/jquery.min.js') }}" defer></script>
- <script src="{{ asset('js/core/jquery-ui.js') }}" defer></script>
+{{--  <script src="/js/core/jquery.min.js" defer></script>
+ <script src="/js/core/jquery-ui.js" defer></script> --}}
+ <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+    $( function() {
+      /* var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+      ]; */
+      $( "#search" ).autocomplete({
+        source: function(request, response){
+           $.ajax({
+            url:"{{route('search')}}",
+            dataType:'json',
+            data: {
+              term:request.term
+            },
+            success:function(data){
+              
+
+             //response(data)
+              $('.agile-group label').html(data);
+            }
+           });
+
+        }
+      });
+    } );
+    </script>  
+ {{-- <script src="/js/test.js"></script> --}}
  
 
 
-  <script src="{{ asset('js/core/popper.min.js') }}"></script>
-  <script src="{{ asset('js/core/bootstrap-material-design.min.js') }}"></script>
+  <script src="/js/core/popper.min.js"></script>
+  {{-- <script src="/js/core/bootstrap-material-design.min.js"></script> --}}
   {{-- <script src="{{ asset('js/plugins/perfect-scrollbar.jquery.min.js') }}"></script> --}}
   @stack('js')
 </body>

@@ -36,5 +36,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('vehiculos', App\Http\Controllers\VehiculoController::class);
     Route::resource('documentos', App\Http\Controllers\DocumentoController::class);
     Route::get('/add/{vehiculo}', [App\Http\Controllers\DocumentoController::class, 'add'])->name('documet.add');
+    Route::get('/search/vehiculos', [App\Http\Controllers\VehiculoController::class, 'search'])->name('search');
     
 });

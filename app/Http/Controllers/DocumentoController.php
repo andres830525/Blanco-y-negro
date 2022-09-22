@@ -66,23 +66,16 @@ class DocumentoController extends Controller
             $file=$request->file("urlpdf");
             $nombre = "pdf_".time().".".$file->guessExtension();
             $ruta = public_path("pdf/".$nombre);
-            $documento = documento::create($request->only('nombre','fecha_expedicion','fecha_vencimiento','valor','vehiculo_id')); 
-            $documento->path = $ruta;
-            $documento->update();
-
-
-           
-              
-        
-             
-  
             if($file->guessExtension()=="pdf"){
                 copy($file, $ruta);
             }else{
 
-                return redirect()->route('vehiculos.index')->with('success', "EL DOCUMENTO QUE ESTAS INTENTANDO AGREGAR NO ES UN PDF");
+                return redirect()->route('vehiculos.index')->with('warning', "EL DOCUMENTO QUE ESTAS INTENTANDO AGREGAR NO ES UN PDF");
                 //dd("NO ES UN PDF");
             }
+            $documento = documento::create($request->only('nombre','fecha_expedicion','fecha_vencimiento','valor','vehiculo_id')); 
+            $documento->path = $ruta;
+            $documento->update();
 
             
         }

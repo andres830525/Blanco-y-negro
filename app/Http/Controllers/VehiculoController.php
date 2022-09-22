@@ -159,4 +159,34 @@ class VehiculoController extends Controller
         return redirect()->route('vehiculos.index');
         //
     }
+
+    /**
+     * search the specified resource from storage.
+     *
+     * @param  \App\Models\vehiculo  $vehiculo
+     * @return \Illuminate\Http\Response
+     * * @param  \Illuminate\Http\Request  $request
+     */
+    public function search(Request   $request  )
+    {
+       $term = $request->get('term');
+
+       $querys = vehiculo::where('placa','LIKE','%'.$term.'%')
+                        ->orWhere('tipologia_id','LIKE','%'.$term.'%')->get();
+
+       $data = [];
+
+       foreach($querys as $query){
+        $data[] = [
+             $query->placa,
+             $query->tipologia->nombre
+        ];
+
+       };
+
+       
+
+       return $data;
+        
+    }
 }
